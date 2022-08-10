@@ -31,16 +31,27 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="y9t-Cc-pFk">
-                        <barButtonItem key="leftBarButtonItem" title="Ubicacion" image="location.viewfinder" catalog="system" id="7mV-Ti-Hhk"/>
+                        <barButtonItem key="leftBarButtonItem" title="Ubicacion" image="location.viewfinder" catalog="system" id="7mV-Ti-Hhk">
+                            <connections>
+                                <action selector="ubicacionBtn:" destination="BYZ-38-t0r" id="KfD-1L-VM2"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="plus.message.fill" catalog="system" id="Jaf-om-N1y">
                                 <connections>
                                     <segue destination="N7B-92-N1k" kind="show" id="QDQ-Xa-Gje"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" id="cWM-4r-vj2"/>
+                            <barButtonItem title="Coordenadas" id="cWM-4r-vj2">
+                                <connections>
+                                    <action selector="CoordenadasBtn:" destination="BYZ-38-t0r" id="Dph-Jn-ICf"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="Mapa" destination="DLh-5H-qKK" id="YWC-Ba-lSL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -101,21 +112,48 @@
             </objects>
             <point key="canvasLocation" x="5.7971014492753632" y="722.54464285714278"/>
         </scene>
-        <!--Contacto-->
+        <!--Busqueda lugar-->
         <scene sceneID="t8M-F4-FKb">
             <objects>
-                <viewController id="yOy-Dn-C6s" sceneMemberID="viewController">
+                <viewController id="yOy-Dn-C6s" customClass="BusquedaLugarViewController" customModule="Mapas_RoutingCFE" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lfa-8X-ey8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="laY-67-Qnu">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="avV-Cl-zGF">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="ZIv-zD-MwJ"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gJC-Cb-HVM">
+                                        <rect key="frame" x="0.0" y="55" width="414" height="797"/>
+                                    </mapView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="rl4-vW-lI9"/>
-                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="laY-67-Qnu" firstAttribute="leading" secondItem="Lfa-8X-ey8" secondAttribute="leading" id="U3J-m6-KXr"/>
+                            <constraint firstAttribute="bottom" secondItem="laY-67-Qnu" secondAttribute="bottom" id="X44-92-EPn"/>
+                            <constraint firstItem="rl4-vW-lI9" firstAttribute="trailing" secondItem="laY-67-Qnu" secondAttribute="trailing" id="cPr-QH-LSF"/>
+                            <constraint firstItem="laY-67-Qnu" firstAttribute="top" secondItem="rl4-vW-lI9" secondAttribute="top" id="mvi-sL-ZaX"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Contacto" image="person" catalog="system" id="31s-OA-hSj"/>
+                    <tabBarItem key="tabBarItem" title="Busqueda lugar" image="magnifyingglass" catalog="system" id="31s-OA-hSj"/>
+                    <connections>
+                        <outlet property="busquedaLugarSB" destination="avV-Cl-zGF" id="8fc-m0-wLh"/>
+                        <outlet property="mapa" destination="gJC-Cb-HVM" id="ZJm-BO-5dj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10K-Tk-Jhg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="803" y="723"/>
+            <point key="canvasLocation" x="802.89855072463774" y="722.54464285714278"/>
         </scene>
         <!--Favoritos-->
         <scene sceneID="Mjx-Rw-rCq">
@@ -204,8 +242,8 @@
         <image name="location.north.circle" catalog="system" width="128" height="121"/>
         <image name="location.square.fill" catalog="system" width="128" height="114"/>
         <image name="location.viewfinder" catalog="system" width="128" height="115"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="map" catalog="system" width="128" height="110"/>
-        <image name="person" catalog="system" width="128" height="117"/>
         <image name="plus.message.fill" catalog="system" width="128" height="113"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
@@ -213,9 +251,6 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
