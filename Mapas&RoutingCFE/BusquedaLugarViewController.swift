@@ -32,6 +32,9 @@ extension BusquedaLugarViewController: UISearchBarDelegate {
         //ocultar el teclado
         busquedaLugarSB.resignFirstResponder()
         
+        //Quitar las anotaciones
+        mapa.removeAnnotations(mapa.annotations)
+        
         let geocoder = CLGeocoder() //para convertir entre lugar y coordenadas
         
         //crear un lugar para buscar que sea el texto que el usuario escribe
@@ -53,6 +56,20 @@ extension BusquedaLugarViewController: UISearchBarDelegate {
                     
                     //Crear el lugar a mostrar
                     if let lugar = lugares?.first {
+                        
+                        // crear la anotacion que tendra las coordenadas, span y la region
+                        let anotacion = MKPointAnnotation()
+                        anotacion.coordinate = lugar.location?.coordinate ?? CLLocationCoordinate2D(latitude: 19.43, longitude: -101.495)
+                        anotacion.title = direccion
+                        anotacion.subtitle = "Lat: \(lugar.location!.coordinate.latitude) ,Lon: \(lugar.location!.coordinate.longitude)"
+                        
+                        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+                        let region = MKCoordinateRegion(center: anotacion.coordinate, span: span)
+                        
+                        self.mapa.setRegion(region, animated: true)
+                        self.mapa.addAnnotation(anotacion)
+                        
+                        self.mapa.selectAnnotation(anotacion, animated: true)
                         
                     }
                     

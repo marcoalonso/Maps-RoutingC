@@ -185,10 +185,37 @@
                     <view key="view" contentMode="scaleToFill" id="yOV-3t-SMp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ovj-7X-VPe">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="rDH-HT-zB7">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="mt2-AK-q5u"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="UTG-bK-DTN">
+                                        <rect key="frame" x="0.0" y="60" width="414" height="709"/>
+                                    </mapView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="cZs-aA-2f6"/>
                         <color key="backgroundColor" systemColor="systemGreenColor"/>
+                        <constraints>
+                            <constraint firstItem="ovj-7X-VPe" firstAttribute="top" secondItem="cZs-aA-2f6" secondAttribute="top" id="45a-o0-dFa"/>
+                            <constraint firstItem="cZs-aA-2f6" firstAttribute="bottom" secondItem="ovj-7X-VPe" secondAttribute="bottom" id="76d-H2-S0c"/>
+                            <constraint firstItem="ovj-7X-VPe" firstAttribute="leading" secondItem="yOV-3t-SMp" secondAttribute="leading" id="a9y-EO-tUS"/>
+                            <constraint firstItem="cZs-aA-2f6" firstAttribute="trailing" secondItem="ovj-7X-VPe" secondAttribute="trailing" id="q4g-Ez-huj"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Ruta" image="line.diagonal.arrow" catalog="system" id="YaW-NA-NQu"/>
+                    <connections>
+                        <outlet property="direccionBuscarSB" destination="rDH-HT-zB7" id="o5u-M1-aDO"/>
+                        <outlet property="mapa" destination="UTG-bK-DTN" id="DdP-hS-MLO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rDM-Hc-jIz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
