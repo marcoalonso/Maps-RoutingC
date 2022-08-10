@@ -43,6 +43,28 @@ extension RutaViewController: MKMapViewDelegate {
         renderizado.strokeColor = .purple
         return renderizado
     }
+    
+    // MARK: - Custom  Anotation
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+
+        var anotationView = mapa.dequeueReusableAnnotationView(withIdentifier: "custom")
+
+        if anotationView == nil {
+            anotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "custom")
+        } else {
+            anotationView?.annotation = annotation
+        }
+        anotationView?.image = UIImage(systemName: "person")
+//        anotationView?.image = UIImage(systemName: "mappin.and.ellipse")
+        anotationView?.displayPriority = .defaultHigh
+        anotationView?.canShowCallout = true
+        
+        return anotationView
+    }
+    
 }
 
 extension RutaViewController: CLLocationManagerDelegate {
@@ -87,6 +109,11 @@ extension RutaViewController: CLLocationManagerDelegate {
 extension RutaViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        //Eliminar la ruta y anot
+        mapa.removeOverlays(mapa.overlays)
+        mapa.removeAnnotations(mapa.annotations)
+        
         direccionBuscarSB.resignFirstResponder()
         
         let geocoder = CLGeocoder()
@@ -125,6 +152,16 @@ extension RutaViewController: UISearchBarDelegate {
     func trazarRuta(coordenadasDestino: CLLocationCoordinate2D){
         //origen
         guard let coordOrigen = manager.location?.coordinate else { return }
+        
+        //Custom Anotacion
+        let anotacion = MKPointAnnotation()
+        anotacion.coordinate = coordOrigen
+        
+        anotacion.title = "Estas aqui"
+        
+        self.mapa.addAnnotation(anotacion)
+
+        
         
         //Crear Origen-Destino
         let origenPlaceMark = MKPlacemark(coordinate: coordOrigen)
